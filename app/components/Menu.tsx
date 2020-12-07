@@ -6,7 +6,7 @@ const Menu = ({ onSelectRoute }: { onSelectRoute: (route: Route) => void }) => {
   return (
     <div className='card overlay-menu btn-group btn-group-toggle buttons'>
       <div className='card-body'>
-        <h5 className='card-title'>Control</h5>
+        <h5 className='card-title'>Round Island Routes</h5>
 
         <div className='custom-control custom-radio'>
           <input
