@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { render } from 'react-dom';
 
-import Map from './components/Map'
+import Menu, { Route } from './components/Menu';
+import Map from './components/Map';
 
-const Application = () => <div className="application"><Map /></div>
+const Application = () => {
+  const [route, setRoute] = useState<Route>();
+  const onSelectRoute = (route: Route) => {
+    setRoute(route);
+  };
+  return (
+    <div className='application'>
+      <Map route={route} />
+      <Menu onSelectRoute={onSelectRoute} />
+    </div>
+  );
+};
 
-render(<Application />, document.getElementById('root'))
+render(<Application />, document.getElementById('root'));

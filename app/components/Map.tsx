@@ -1,24 +1,62 @@
 import React, { useEffect } from 'react';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { Map } from 'mapbox-gl';
 
-mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN || ''
+import type { Route } from './Menu';
 
-const Map = () => {
-  let container
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN || '';
+
+let container;
+let map: Map | null = null;
+
+const Component = ({ route }: { route?: Route }) => {
   useEffect(() => {
-    if (!container) { 
-      return
+    if (!container) {
+      return;
     }
 
-    const map = new mapboxgl.Map({
-      container,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [103.8198, 1.3521],
-      zoom: 12
-    });
-  })
+    if (!map) {
+      map = new mapboxgl.Map({
+        container,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [103.8198, 1.3521],
+        zoom: 12,
+      });
+      map.on('load', () => {
+        if (!map) return;
+        map.addSource('default', {
+          type: 'geojson',
+          data: 'data/default-route.json',
+        });
+      });
+    }
 
-  
-  return <div ref={el => { container = el }} className="map" />
-}
-export default Map
+    if (map && route) {
+      const layer = map.getLayer('route');
+      if (!layer) {
+        map.addLayer({
+          id: 'route',
+          type: 'line',
+          source: route,
+          layout: {
+            'line-join': 'round',
+            'line-cap': 'round',
+          },
+          paint: {
+            'line-color': '#888',
+            'line-width': 8,
+          },
+        });
+      }
+    }
+  });
+
+  return (
+    <div
+      ref={(el) => {
+        container = el;
+      }}
+      className='map'
+    />
+  );
+};
+export default Component;

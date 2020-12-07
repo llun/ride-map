@@ -1,3 +1,8 @@
+:root {
+  --control-border: #aaaaaa;
+  --control-background: #fefefe;
+}
+
 body {
   margin: 0;
 }
@@ -15,4 +20,15 @@ body {
 
 .map {
   flex: 1;
+}
+
+.overlay-menu {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  /* padding: 0.5rem; */
+  /* border: 1px var(--control-border) solid; */
+  max-width: 300px;
+
+  /* background: var(--control-background); */
 }
