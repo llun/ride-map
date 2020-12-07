@@ -27,26 +27,39 @@ const Component = ({ route }: { route?: Route }) => {
           type: 'geojson',
           data: 'data/default-route.json',
         });
+        map.addSource('short', {
+          type: 'geojson',
+          data: 'data/short-route.json',
+        });
+        map.addSource('extreme', {
+          type: 'geojson',
+          data: 'data/extreme-route.json',
+        });
       });
     }
 
     if (map && route) {
       const layer = map.getLayer('route');
-      if (!layer) {
-        map.addLayer({
-          id: 'route',
-          type: 'line',
-          source: route,
-          layout: {
-            'line-join': 'round',
-            'line-cap': 'round',
-          },
-          paint: {
-            'line-color': '#888',
-            'line-width': 8,
-          },
-        });
+      if (layer) {
+        map.removeLayer('route');
       }
+
+      const source = map.getSource(route);
+      if (!source) return;
+
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: route,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#888',
+          'line-width': 8,
+        },
+      });
     }
   });
 
