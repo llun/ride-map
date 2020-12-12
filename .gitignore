@@ -1,5 +1,4 @@
 .DS_Store
 node_modules
-js
 scripts/*.gpx
 scripts/*.geojson
