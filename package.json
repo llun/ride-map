@@ -15,7 +15,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@rollup/plugin-typescript": "^8.0.0",
     "@types/mapbox-gl": "^2.0.0",
-    "@types/node": "^14.14.12",
+    "@types/node": "^14.14.13",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "gpxparser": "^3.0.6",
